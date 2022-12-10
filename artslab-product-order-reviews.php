@@ -4,7 +4,7 @@
  * Plugin Name: Artslab Product Order Reviews
  * Plugin URI: https://artslabcreatives.com
  * Description: Allows you send emails regarding orders and get customers to review the orders on a single page for each of the products they have ordered
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least: 6.1
  * Requires PHP: 7.4
  * Author: Artslab Creatives
@@ -117,7 +117,7 @@ function wc_order_list_callback_function($order_id) {
 /**
  * Add new form action after form submission.
  *
- * @since 1.0.0
+ * @since 1.0.1
  * @param ElementorPro\Modules\Forms\Registrars\Form_Actions_Registrar $form_actions_registrar
  * @return void
  */
@@ -218,7 +218,7 @@ function process_order_reviews() {
 /**
  * Add new `local-tel` field to Elementor form widget.
  *
- * @since 1.0.0
+ * @since 1.0.1
  * @param \ElementorPro\Modules\Forms\Registrars\Form_Fields_Registrar $form_fields_registrar
  * @return void
  */
