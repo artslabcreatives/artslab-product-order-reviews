@@ -227,3 +227,6 @@ function add_new_form_field( $form_fields_registrar ) {
     $form_fields_registrar->register( new \Elementor_Local_Tel_Field() );
 }
 add_action( 'elementor_pro/forms/fields/register', 'add_new_form_field' );
+
+require_once( __DIR__ . '/updater.php' );
+new ALCPORUpdater();
