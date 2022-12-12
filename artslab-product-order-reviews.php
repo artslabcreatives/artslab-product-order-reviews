@@ -26,8 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /// Register a custom menu page
 function wc_completed_orders_menu_page() {
     add_menu_page(
-        'Completed Orders',
-        'Completed Orders',
+        'Order Reviews',
+        'Order Reviews',
         'manage_options',
         'completed-orders',
         'wc_completed_orders_page',
