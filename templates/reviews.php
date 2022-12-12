@@ -26,7 +26,7 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 <p><?php printf( esc_html__( 'Hi %s,', 'woocommerce' ), esc_html( $order->get_billing_first_name() ) ); ?></p>
 <p><?php esc_html_e( 'We have completed your order including delivery.', 'woocommerce' ); ?><br/>
 <?php esc_html_e( 'Please support us by sending your reviews about our products, you can review the products for this order by clicking this link.', 'woocommerce' ); ?></p>
-<p><a href="<?php echo site_url("?p=4431&order_id=".$order->get_id()."&customer_id=".$order->get_customer_id());?>">Review Products</a></p>
+<p><a href="<?php echo site_url("?p=4434&order_id=".$order->get_id()."&customer_id=".$order->get_customer_id());?>">Review Products</a></p>
 <p><?php esc_html_e( 'Below are the products you ordered.', 'woocommerce' ); ?></p>
 <div style="margin-bottom: 40px;">
     <table class="td" cellspacing="0" cellpadding="6" style="width: 100%; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" border="1">
