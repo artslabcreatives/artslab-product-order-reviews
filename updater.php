@@ -12,7 +12,7 @@ if( ! class_exists( 'ALCPORUpdater' ) ) {
 
 			$this->plugin_slug = plugin_basename(__DIR__);
 			$this->version = '1.3';
-			$this->cache_key = 'artlab_pg_customer_location_wc_updater';
+			$this->cache_key = 'artlab_product_order_review_wc_updater';
 			$this->cache_allowed = false;
 
 			add_filter('plugins_api', array($this, 'info'), 20, 3);

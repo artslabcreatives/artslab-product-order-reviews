@@ -4,7 +4,7 @@
  * Plugin Name: Artslab Product Order Reviews
  * Plugin URI: https://artslabcreatives.com
  * Description: Allows you send emails regarding orders and get customers to review the orders on a single page for each of the products they have ordered
- * Version: 1.0.1
+ * Version: 1.0.0
  * Requires at least: 6.1
  * Requires PHP: 7.4
  * Author: Artslab Creatives

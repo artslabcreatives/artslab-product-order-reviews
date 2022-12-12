@@ -54,7 +54,7 @@ class Store_Review_After_Submit extends \ElementorPro\Modules\Forms\Classes\Acti
 
         // Get submitted form data.
         $raw_fields = $record->get( 'fields' );
-
+        error_log(json_encode($raw_fields));
         $rw = $raw_fields['product_reviews']['raw_value'];
         // Normalize form data.
         $fields = [];
@@ -69,16 +69,21 @@ class Store_Review_After_Submit extends \ElementorPro\Modules\Forms\Classes\Acti
                 ];
             }
         }
+
+        error_log(json_encode($fields));
         
         // loop through the submitted reviews
         foreach( $fields as $product_id => $review_content ) {
             // create a new comment object
-
+            $user = get_userdata($review_content['customer']);
             $comment_data = array(
                 'comment_post_ID' => $review_content['product'],
                 'comment_content' => $review_content['review'],
                 'comment_approved' => 0,
                 'user_id' => $review_content['customer'],
+                'comment_author' => $user->display_name,
+                'comment_author_email' => $user->user_email,
+                'comment_type' => 'review',
             );
             $comment_id = wp_insert_comment( $comment_data );
 
