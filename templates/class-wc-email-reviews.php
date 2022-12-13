@@ -44,9 +44,27 @@ if ( ! class_exists( 'WC_Email_Order_Review', false ) ) :
 			// Triggers for this email.
 			add_action( 'woocommerce_order_status_completed_notification', array( $this, 'trigger' ), 10, 2 );
 
+			//add_filter( 'woocommerce_email_settings', [$this, 'custom_email_settings'], 10, 2 );
 			// Call parent constructor.
 			parent::__construct();
 		}
+
+
+
+		public function init_form_fieldsf() {
+			$form = $this->form_fields;
+			$extra_form_fields = array(
+	            'custom_email_setting_1' => array(
+	                'title' => 'Custom Email Setting 1',
+	                'type'  => 'text',
+	            ),
+	            'custom_email_setting_2' => array(
+	                'title' => 'Custom Email Setting 2',
+	                'type'  => 'text',
+	            ),
+	        );
+	        return $this->form_fields; //array_merge($form, $extra_form_fields);
+	    }
 
 		/**
 		 * Trigger the sending of this email.
@@ -106,6 +124,8 @@ if ( ! class_exists( 'WC_Email_Order_Review', false ) ) :
 					'order'              => $this->object,
 					'email_heading'      => $this->get_heading(),
 					'additional_content' => $this->get_additional_content(),
+					'top_content'		 => $this->top_status(),
+					'top_content'		 => $this->get_top_content(),
 					'sent_to_admin'      => false,
 					'plain_text'         => false,
 					'email'              => $this,
@@ -125,6 +145,8 @@ if ( ! class_exists( 'WC_Email_Order_Review', false ) ) :
 					'order'              => $this->object,
 					'email_heading'      => $this->get_heading(),
 					'additional_content' => $this->get_additional_content(),
+					'top_content'		 => $this->top_status(),
+					'top_content'		 => $this->get_top_content(),
 					'sent_to_admin'      => false,
 					'plain_text'         => true,
 					'email'              => $this,
@@ -140,6 +162,94 @@ if ( ! class_exists( 'WC_Email_Order_Review', false ) ) :
 		 */
 		public function get_default_additional_content() {
 			return __( 'We look forward to seeing you at our new purchase.', 'woocommerce' );
+		}
+
+		/**
+		 * Default content to show below main email content.
+		 *
+		 * @since 3.7.0
+		 * @return string
+		 */
+		public function get_default_top_status() {
+			return __( 'We have completed your order including delivery.' );
+		}
+
+		/**
+		 * Default content to show below main email content.
+		 *
+		 * @since 3.7.0
+		 * @return string
+		 */
+		public function get_default_top_content() {
+			return __( 'Many thanks for choosing ZAHAARA Sanctuary for your home/resort. I hope you love the new addition at your place. This is a kind request to please leave us a review by clicking on the link below. It helps us take our handmade items to more homes as yours. Many thanks!', 'woocommerce' );
+		}
+
+		/**
+		 * Initialise settings form fields.
+		 */
+		public function init_form_fields() {
+			/* translators: %s: list of placeholders */
+			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
+			$this->form_fields = array(
+				'enabled'            => array(
+					'title'   => __( 'Enable/Disable', 'woocommerce' ),
+					'type'    => 'checkbox',
+					'label'   => __( 'Enable this email notification', 'woocommerce' ),
+					'default' => 'yes',
+				),
+				'subject'            => array(
+					'title'       => __( 'Subject', 'woocommerce' ),
+					'type'        => 'text',
+					'desc_tip'    => true,
+					'description' => $placeholder_text,
+					'placeholder' => $this->get_default_subject(),
+					'default'     => '',
+				),
+				'heading'            => array(
+					'title'       => __( 'Email heading', 'woocommerce' ),
+					'type'        => 'text',
+					'desc_tip'    => true,
+					'description' => $placeholder_text,
+					'placeholder' => $this->get_default_heading(),
+					'default'     => '',
+				),
+				'get_top_status' => array(
+					'title'       => __( 'Top status content', 'woocommerce' ),
+					'description' => __( 'Top status text appear above the main email order table.', 'woocommerce' ) . ' ' . $placeholder_text,
+					'css'         => 'width:400px; height: 75px;',
+					'placeholder' => __( 'N/A', 'woocommerce' ),
+					'type'        => 'textarea',
+					'default'     => $this->get_default_top_status(),
+					'desc_tip'    => true,
+				),
+				'get_top_content' => array(
+					'title'       => __( 'Top content', 'woocommerce' ),
+					'description' => __( 'Text to appear above the main email order table.', 'woocommerce' ) . ' ' . $placeholder_text,
+					'css'         => 'width:400px; height: 75px;',
+					'placeholder' => __( 'N/A', 'woocommerce' ),
+					'type'        => 'textarea',
+					'default'     => $this->get_default_top_content(),
+					'desc_tip'    => true,
+				),
+				'additional_content' => array(
+					'title'       => __( 'Additional content', 'woocommerce' ),
+					'description' => __( 'Text to appear below the main email content.', 'woocommerce' ) . ' ' . $placeholder_text,
+					'css'         => 'width:400px; height: 75px;',
+					'placeholder' => __( 'N/A', 'woocommerce' ),
+					'type'        => 'textarea',
+					'default'     => $this->get_default_additional_content(),
+					'desc_tip'    => true,
+				),
+				'email_type'         => array(
+					'title'       => __( 'Email type', 'woocommerce' ),
+					'type'        => 'select',
+					'description' => __( 'Choose which format of email to send.', 'woocommerce' ),
+					'default'     => 'html',
+					'class'       => 'email_type wc-enhanced-select',
+					'options'     => $this->get_email_type_options(),
+					'desc_tip'    => true,
+				),
+			);
 		}
 
 		function my_custom_email_template_location( $template, $template_name, $template_path ) {
