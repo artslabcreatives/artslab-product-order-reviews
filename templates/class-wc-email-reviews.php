@@ -213,7 +213,7 @@ if ( ! class_exists( 'WC_Email_Order_Review', false ) ) :
 					'placeholder' => $this->get_default_heading(),
 					'default'     => '',
 				),
-				'get_top_status' => array(
+				'top_status' => array(
 					'title'       => __( 'Top status content', 'woocommerce' ),
 					'description' => __( 'Top status text appear above the main email order table.', 'woocommerce' ) . ' ' . $placeholder_text,
 					'css'         => 'width:400px; height: 75px;',
@@ -222,7 +222,7 @@ if ( ! class_exists( 'WC_Email_Order_Review', false ) ) :
 					'default'     => $this->get_default_top_status(),
 					'desc_tip'    => true,
 				),
-				'get_top_content' => array(
+				'top_content' => array(
 					'title'       => __( 'Top content', 'woocommerce' ),
 					'description' => __( 'Text to appear above the main email order table.', 'woocommerce' ) . ' ' . $placeholder_text,
 					'css'         => 'width:400px; height: 75px;',
